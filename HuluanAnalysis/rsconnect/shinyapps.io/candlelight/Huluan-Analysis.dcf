@@ -1,0 +1,12 @@
+name: Huluan-Analysis
+title: Huluan-Analysis
+username:
+account: candlelight
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 3839400
+bundleId: 4385340
+url: https://candlelight.shinyapps.io/Huluan-Analysis/
+when: 1616517089.23196
+asMultiple: FALSE
+asStatic: FALSE
