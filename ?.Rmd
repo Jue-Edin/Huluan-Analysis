@@ -7,7 +7,6 @@ output: html_document
 ```{r set up, load-packages, include = FALSE}
 # Add any additional packages you need to this chunk
 library(tidyverse)
-library(broom)
 library(knitr)
 library(dplyr)
 library(ggplot2)
@@ -15,36 +14,14 @@ library(tibble)
 library(openintro)
 ```
 
-
-```{r cars}
-library(openintro)
-loans <- loans_full_schema %>%
-  select(loan_amount, interest_rate, term, grade, 
-         state, annual_income, homeownership, debt_to_income)
-glimpse(loans)
-
-ggplot(loans, aes(y = homeownership,
-                  fill = grade)) +
-  geom_bar(position = "fill") +
-  labs(
-    x = "Highest Degree",
-    y = "Drug Types",
-    fill = "Highest Degree",
-    title = "To examine if a certain gender has an inclination for drug abuse",
-    subtitle = "with some additional factors"
-  )
-```
-
-
 ```{r load-data, echo = FALSE}
-# load data here, if you like
 library(readr)
-ca <- read_csv("ca.csv")
+ca <- read_csv(file = "ca.csv")
 ```
 
 ```{r Tidy data}
-library(broom)
 bars <- ca %>%
+<<<<<<< HEAD
   select(DEM_GENDER, OP_NMU_EVER, BENZ_NMU_EVER, STIM_NMU_EVER, GABA_NMU_EVER,    ILL_USE, DAST_CAT)
   
 ```
@@ -83,3 +60,42 @@ return(plt)
 
 ```
 
+=======
+  select(DEM_GENDER, OP_NMU_EVER, BENZ_NMU_EVER, STIM_NMU_EVER, GABA_NMU_EVER, ILL_USE, BENZ_NMU_EVER) %>%
+  group_by(DEM_GENDER)
+
+# nmsl
+bars$DEM_GENDER[bars$DEM_GENDER == 1] <- 1    #将男性的归类为1
+bars$DEM_GENDER[bars$DEM_GENDER == 2] <- 2    #将女性的归类为2
+bars$DEM_GENDER <- factor(bars$DEM_GENDER,    #转为factor形式，替换标签
+                          levels=c(1, 2),
+                          labels=c("Male", "Female"))
+
+# nmsl
+bars$OP_NMU_EVER[bars$OP_NMU_EVER == 0] <- 0    #将无的归类为1
+bars$OP_NMU_EVER[bars$OP_NMU_EVER == 1] <- 1    #将有的归类为2
+bars$OP_NMU_EVER <- factor(bars$OP_NMU_EVER,    #转为factor形式，替换标签
+                           levels=c(0, 1),
+                           labels=c("None", "Opioids"))
+
+
+bars$BENZ_NMU_EVER[bars$BENZ_NMU_EVER == 0] <- 0    # ???
+bars$BENZ_NMU_EVER[bars$BENZ_NMU_EVER == 1] <- 1    #将男性的归类为1
+bars$BENZ_NMU_EVER <- factor(bars$BENZ_NMU_EVER,    #转为factor形式，替换标签
+                             levels=c(0,1),
+                             labels=c("No","Yes"))
+glimpse(bars)
+```
+
+```{r}
+ggplot(bars, aes(y = DEM_GENDER,
+                 fill = BENZ_NMU_EVER)) +
+  geom_bar(position = "fill") +
+  labs(x = "Highest Degree",
+       y = "Drug Types",
+       fill = "Highest Degree%",
+       title = "To examine if a certain gender has an inclination for drug abuse",
+       subtitle = "with some additional factors"
+       )
+```
+>>>>>>> b900367dbbad0ef707e172abdf7b8c173aab4854
