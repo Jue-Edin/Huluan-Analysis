@@ -12,6 +12,7 @@ library(knitr)
 library(dplyr)
 library(ggplot2)
 library(tibble)
+library(openintro)
 ```
 
 
@@ -41,9 +42,9 @@ library(readr)
 ca <- read_csv("ca.csv")
 ```
 
-```{Tidy data}
+```{r Tidy data}
 library(broom)
 bars <- ca %>%
-  select(DEM_AGE)
-
+  select(DEM_GENDER, OP_NMU_EVER, BENZ_NMU_EVER, STIM_NMU_EVER, GABA_NMU_EVER,    ILL_USE, DAST_CAT)
+  
 ```
