@@ -18,14 +18,12 @@ library(gapminder)
 
 ```{r load-data, echo = FALSE}
 library(readr)
-ca <- read_csv(file = "ca.csv")
+ca <- read_csv(file = "/cloud/project/HuluanAnalysis/ca.csv")
 ```
 
 ```{r Tidy data}
-
 bars <- ca %>%
-<<<<<<< HEAD
-  select(DEM_GENDER, OP_NMU_EVER, BENZ_NMU_EVER, STIM_NMU_EVER, GABA_NMU_EVER,    ILL_USE, DAST_CAT)
+  select(DEM_GENDER, OP_NMU_EVER, BENZ_NMU_EVER, STIM_NMU_EVER, GABA_NMU_EVER, ILL_USE, DAST_CAT)
   
 ```
 
@@ -63,10 +61,8 @@ return(plt)
 
 ```
 
-=======
-  select(DEM_GENDER, OP_NMU_EVER, BENZ_NMU_EVER, STIM_NMU_EVER, GABA_NMU_EVER, ILL_USE, BENZ_NMU_EVER) %>%
-  group_by(DEM_GENDER)
 
+```{r}
 # nmsl
 bars$DEM_GENDER[bars$DEM_GENDER == 1] <- 1    #将男性的归类为1
 bars$DEM_GENDER[bars$DEM_GENDER == 2] <- 2    #将女性的归类为2
@@ -88,9 +84,8 @@ bars$BENZ_NMU_EVER <- factor(bars$BENZ_NMU_EVER,    #转为factor形式，替换
                              levels=c(0,1),
                              labels=c("No","Yes"))
 glimpse(bars)
-```
 
-```{r}
+
 ggplot(bars, aes(y = BENZ_NMU_EVER,
                  fill = DEM_GENDER)) +
   geom_bar(position = "fill") +
@@ -99,6 +94,5 @@ ggplot(bars, aes(y = BENZ_NMU_EVER,
        fill = "Gender%",
        title = "To examine if a certain gender has an inclination for drug abuse"
        )
-
 ```
->>>>>>> b900367dbbad0ef707e172abdf7b8c173aab4854
+
