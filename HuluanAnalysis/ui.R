@@ -18,8 +18,8 @@ shinyUI(fluidPage(
     # Sidebar with a slider input for number of bins
     sidebarLayout(
         sidebarPanel(
-            selectInput("Drug Types",
-                        "Drug Types",
+            selectInput("bars",
+                        label = "Drug Types",
                         choices = list("opioids", "benzodiazepines",
                                        "stimulants", "illicit drugs",
                                        "GABA")
