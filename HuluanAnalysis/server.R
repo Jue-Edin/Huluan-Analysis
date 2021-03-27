@@ -27,18 +27,18 @@ bars$DEM_GENDER <- factor(bars$DEM_GENDER,    # Change our data to the factor an
                           labels=c("Male", "Female"))
 
 # Plot the first figure.
-bars$OP_NMU_EVER[bars$OP_NMU_EVER == 0] <- 0    # Classify non-taking as 0.
-bars$OP_NMU_EVER[bars$OP_NMU_EVER == 1] <- 1    # Classify taking as 1.
-bars$OP_NMU_EVER <- factor(bars$OP_NMU_EVER,    # Change our data to the factor and change label.
-                           levels=c(0,1),
-                           labels=c("No","Yes"))
-
-# Plot the second figure.
 bars$BENZ_NMU_EVER[bars$BENZ_NMU_EVER == 0] <- 0    # Classify non-taking as 0.
 bars$BENZ_NMU_EVER[bars$BENZ_NMU_EVER == 1] <- 1    # Classify taking as 1.
 bars$BENZ_NMU_EVER <- factor(bars$BENZ_NMU_EVER,    # Change our data to the factor and change label.
                              levels=c(0,1),
                              labels=c("No","Yes"))
+
+# Plot the second figure.
+bars$OP_NMU_EVER[bars$OP_NMU_EVER == 0] <- 0    # Classify non-taking as 0.
+bars$OP_NMU_EVER[bars$OP_NMU_EVER == 1] <- 1    # Classify taking as 1.
+bars$OP_NMU_EVER <- factor(bars$OP_NMU_EVER,    # Change our data to the factor and change label.
+                           levels=c(0,1),
+                           labels=c("No","Yes"))
 
 # Plot the third figure.
 bars$STIM_NMU_EVER[bars$STIM_NMU_EVER == 0] <- 0    # Classify non-taking as 0.
@@ -62,61 +62,56 @@ bars$ILL_USE <- factor(bars$ILL_USE,    # Change our data to the factor and chan
                        labels=c("No","Yes"))
 
 # Define server logic required to draw a histogram.
-shinyServer(function(input, output) {
+server <- function(input, output) {
+    
+    # 最终生成结果。
+    output$distPlot <- renderPlot(
+        {
+            if(input$bars == "benzodiazepines"){
+                ggplot(bars, aes(y = BENZ_NMU_EVER,
+                                 fill = DEM_GENDER)) +
+                    geom_bar(position = "fill") +
+                    labs(x = "Percentage",
+                         y = "Drug type: benzodiazepine",
+                         fill = "Gender%",
+                         title = "To examine if a certain gender has an inclination for drug abuse")
+            }
+            if(input$bars == "opioids"){
+                ggplot(bars, aes(y = OP_NMU_EVER,
+                                 fill = DEM_GENDER)) +
+                    geom_bar(position = "fill") +
+                    labs(x = "Percentage",
+                         y = "Drug type: benzodiazepine",
+                         fill = "Gender%",
+                         title = "To examine if a certain gender has an inclination for drug abuse")
+            }
+            if(input$bars == "stimulants"){
+                ggplot(bars, aes(y = STIM_NMU_EVER,
+                                 fill = DEM_GENDER)) +
+                    geom_bar(position = "fill") +
+                    labs(x = "Percentage",
+                         y = "Drug type: benzodiazepine",
+                         fill = "Gender%",
+                         title = "To examine if a certain gender has an inclination for drug abuse")
+            }
+            if(input$bars == "GABA"){
+                ggplot(bars, aes(y = GABA_NMU_EVER,
+                                 fill = DEM_GENDER)) +
+                    geom_bar(position = "fill") +
+                    labs(x = "Percentage",
+                         y = "Drug type: benzodiazepine",
+                         fill = "Gender%",
+                         title = "To examine if a certain gender has an inclination for drug abuse")
+            }
+            if(input$bars == "illicit drug"){
+                ggplot(bars, aes(y = ILL_USE,
+                                 fill = DEM_GENDER)) +
+                    geom_bar(position = "fill") +
+                    labs(x = "Percentage",
+                         y = "Drug type: benzodiazepine",
+                         fill = "Gender%",
+                         title = "To examine if a certain gender has an inclination for drug abuse")
+            }
+        })  
+}
 
-    output$distPlot <- renderPlot({
-        datasetInput <- reactive({
-            switch(input$bars,
-                   "OP_NMU_EVER" = opioids,
-                   "BENZ_NMU_EVER" = benzodiazepines,
-                   "STIM_NMU_EVER" = stimulants,
-                   "GABA_NMU_EVER" = GABA,
-                   "ILL_USE" = illicit_drugs)
-        })
-        
-        
-        # Draw the bar chart with different drugs.
-        # Draw the first one.
-        ggplot(bars, aes(y = BENZ_NMU_EVER,
-                         fill = DEM_GENDER)) +
-            geom_bar(position = "fill") +
-            labs(x = "Percentage",
-                 y = "Drug type: benzodiazepine",
-                 fill = "Gender%",
-                 title = "To examine if a certain gender has an inclination for drug abuse"
-            )
-        ggplot(bars, aes(y = BENZ_NMU_EVER,
-                         fill = DEM_GENDER)) +
-            geom_bar(position = "fill") +
-            labs(x = "Percentage",
-                 y = "Drug type: benzodiazepine",
-                 fill = "Gender%",
-                 title = "To examine if a certain gender has an inclination for drug abuse"
-            )
-        ggplot(bars, aes(y = BENZ_NMU_EVER,
-                         fill = DEM_GENDER)) +
-            geom_bar(position = "fill") +
-            labs(x = "Percentage",
-                 y = "Drug type: benzodiazepine",
-                 fill = "Gender%",
-                 title = "To examine if a certain gender has an inclination for drug abuse"
-            )
-        ggplot(bars, aes(y = BENZ_NMU_EVER,
-                         fill = DEM_GENDER)) +
-            geom_bar(position = "fill") +
-            labs(x = "Percentage",
-                 y = "Drug type: benzodiazepine",
-                 fill = "Gender%",
-                 title = "To examine if a certain gender has an inclination for drug abuse"
-            )
-        ggplot(bars, aes(y = BENZ_NMU_EVER,
-                         fill = DEM_GENDER)) +
-            geom_bar(position = "fill") +
-            labs(x = "Percentage",
-                 y = "Drug type: benzodiazepine",
-                 fill = "Gender%",
-                 title = "To examine if a certain gender has an inclination for drug abuse"
-            )
-    })
-
-})

@@ -10,7 +10,7 @@
 library(shiny)
 
 # Define UI for application that draws a histogram
-shinyUI(fluidPage(
+ui <- fluidPage(
 
     # Application title
     titlePanel("Old Faithful Geyser Data"),
@@ -20,7 +20,7 @@ shinyUI(fluidPage(
         sidebarPanel(
             selectInput("bars",
                         label = "Drug Types",
-                        choices = list("opioids", "benzodiazepines",
+                        choices = list("benzodiazepines", "opioids",
                                        "stimulants", "illicit drugs",
                                        "GABA")
             )
@@ -31,4 +31,4 @@ shinyUI(fluidPage(
             plotOutput("distPlot")
         )
     )
-))
+)
