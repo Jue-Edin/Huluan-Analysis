@@ -48,3 +48,38 @@ bars <- ca %>%
   select(DEM_GENDER, OP_NMU_EVER, BENZ_NMU_EVER, STIM_NMU_EVER, GABA_NMU_EVER,    ILL_USE, DAST_CAT)
   
 ```
+
+
+
+
+```{r}
+library(tidyverse)
+theme_set(theme_classic())
+library(maps)
+library(scales)
+library(readr)
+
+region_store <- ca %>%
+  filter(
+    OP_NMU_EVER == 1|BENZ_NMU_EVER == 1|STIM_NMU_EVER == 1| GABA_NMU_EVER == 1|ILL_USE == 1
+  ) %>%
+  select(DEM_LOCATION, DAST_CAT) %>%
+  group_by(DEM_LOCATION) %>%
+  summarise(
+    ave_dast = mean(DAST_CAT, na.rm = TRUE)
+  )
+
+names(region_store)[names(region_store) == "region"] <- "abb"
+
+plt <- ggplot(region_store, aes(x = long, y = lat, group = group, fill = fact)) + 
+  geom_polygon() +
+  scale_fill_viridis_c(option = "magma") +
+  theme_void() +
+  labs(fill = paste(legendName, "dast_cat", sep = " "))
+return(plt)
+  
+
+
+
+```
+
