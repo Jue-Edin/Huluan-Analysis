@@ -45,38 +45,5 @@ ca <- read_csv("ca.csv")
 ```
 
 ```{r Tidy data}
-library(broom)
-bars <- ca %>%
-  select(bars$DEM_GENDER == as.factor(DEM_GENDER), 
-         OP_NMU_EVER == as.factor(OP_NMU_EVER), 
-         BENZ_NMU_EVER = as.factor(BENZ_NMU_EVER), 
-         STIM_NMU_EVER = as.factor(STIM_NMU_EVER), 
-         GABA_NMU_EVER = as.factor(GABA_NMU_EVER), 
-         ILL_USE = as.factor(ILL_USE), 
-         DAST_CAT = as.factor(DAST_CAT)) %>%
-         group_by(DEM_GENDER)
-
-maps <- ca %>%
-  select(DEM_LOCATION)
-
-Drug_abuse <- ca %>%
-  select(OP_NMU_EVER, BENZ_NMU_EVER, STIM_NMU_EVER, GABA_NMU_EVER, ILL_USE)
-a <- colSums(Drug_abuse[,c(1:5)])
-b <- rowSums(Drug_abuse[,c(1:5)])
-print(a)
-print(b)
-  
-```
-
-```{r}
-ggplot(bars, aes(y = OP_NMU_EVER,
-                  fill = DAST_CAT)) +
-  geom_bar(position = "fill") +
-  labs(
-    x = "Proportion",
-    y = "Homeownership",
-    fill = "Grade",
-    title = "Grades of Lending Club loans",
-    subtitle = "and homeownership of lendee"
-  )
+ 
 ```
