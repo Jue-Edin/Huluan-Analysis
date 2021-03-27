@@ -22,9 +22,7 @@ ca <- read_csv(file = "ca.csv")
 ```
 
 ```{r Tidy data}
-<<<<<<< HEAD
- 
-=======
+
 bars <- ca %>%
   select(DEM_GENDER, OP_NMU_EVER, BENZ_NMU_EVER, STIM_NMU_EVER, GABA_NMU_EVER, ILL_USE, BENZ_NMU_EVER) %>%
   group_by(DEM_GENDER)
@@ -53,14 +51,13 @@ glimpse(bars)
 ```
 
 ```{r}
-ggplot(bars, aes(y = DEM_GENDER,
-                 fill = BENZ_NMU_EVER)) +
+ggplot(bars, aes(y = BENZ_NMU_EVER,
+                 fill = DEM_GENDER)) +
   geom_bar(position = "fill") +
-  labs(x = "Highest Degree",
-       y = "Drug Types",
-       fill = "Highest Degree%",
-       title = "To examine if a certain gender has an inclination for drug abuse",
-       subtitle = "with some additional factors"
+  labs(x = "Percentage",
+       y = "Drug type: benzodiazepine",
+       fill = "Gender%",
+       title = "To examine if a certain gender has an inclination for drug abuse"
        )
->>>>>>> dfc91ae2d259fefc0e4d473a897d4d8f838a10cd
+
 ```
