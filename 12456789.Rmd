@@ -24,7 +24,90 @@ ca <- read_csv(file = "/cloud/project/HuluanAnalysis/ca.csv")
 ```{r Tidy data}
 bars <- ca %>%
   select(DEM_GENDER, OP_NMU_EVER, BENZ_NMU_EVER, STIM_NMU_EVER, GABA_NMU_EVER, ILL_USE, DAST_CAT)
-  
+
+# nmsl
+bars$DEM_GENDER[bars$DEM_GENDER == 1] <- 1    #将男性的归类为1
+bars$DEM_GENDER[bars$DEM_GENDER == 2] <- 2    #将女性的归类为2
+bars$DEM_GENDER <- factor(bars$DEM_GENDER,    #转为factor形式，替换标签
+                          levels=c(1, 2),
+                          labels=c("Male", "Female"))
+
+# nmsl
+bars$OP_NMU_EVER[bars$OP_NMU_EVER == 0] <- 0    #将无的归类为1
+bars$OP_NMU_EVER[bars$OP_NMU_EVER == 1] <- 1    #将有的归类为2
+bars$OP_NMU_EVER <- factor(bars$OP_NMU_EVER,    #转为factor形式，替换标签
+                           levels=c(0, 1),
+                           labels=c("None", "Opioids"))
+
+
+bars$BENZ_NMU_EVER[bars$BENZ_NMU_EVER == 0] <- 0    # ???
+bars$BENZ_NMU_EVER[bars$BENZ_NMU_EVER == 1] <- 1    #将男性的归类为1
+bars$BENZ_NMU_EVER <- factor(bars$BENZ_NMU_EVER,    #转为factor形式，替换标签
+                             levels=c(0,1),
+                             labels=c("No","Yes"))
+
+# Plot the third figure.
+bars$STIM_NMU_EVER[bars$STIM_NMU_EVER == 0] <- 0    # Classify non-taking as 0.
+bars$STIM_NMU_EVER[bars$STIM_NMU_EVER == 1] <- 1    # Classify taking as 1.
+bars$STIM_NMU_EVER <- factor(bars$STIM_NMU_EVER,    # Change our data to the factor and change label.
+                             levels=c(0, 1),
+                             labels=c("No", "Yes"))
+
+# Plot the fourth figure.
+bars$GABA_NMU_EVER[bars$GABA_NMU_EVER == 0] <- 0    # Classify non-taking as 0.
+bars$GABA_NMU_EVER[bars$GABA_NMU_EVER == 1] <- 1    # Classify taking as 1.
+bars$GABA_NMU_EVER <- factor(bars$GABA_NMU_EVER,    # Change our data to the factor and change label.
+                             levels=c(0, 1),
+                             labels=c("No", "Yes"))
+
+# Plot the fifth figure.
+bars$ILL_USE[bars$ILL_USE == 0] <- 0    # Classify non-taking as 0.
+bars$ILL_USE[bars$ILL_USE == 1] <- 1    # Classify taking as 1.
+bars$ILL_USE <- factor(bars$ILL_USE,    # Change our data to the factor and change label.
+                       levels=c(0, 1),
+                       labels=c("No", "Yes"))
+
+
+ggplot(bars, aes(y = BENZ_NMU_EVER,
+                 fill = DEM_GENDER)) +
+  geom_bar(position = "fill") +
+  labs(x = "Percentage",
+       y = "Drug type: benzodiazepine",
+       fill = "Gender%",
+       title = "To examine if a certain gender has an inclination for drug abuse"
+       )
+
+ggplot(bars, aes(y = OP_NMU_EVER,
+                 fill = DEM_GENDER)) +
+                    geom_bar(position = "fill") +
+                    labs(x = "Percentage",
+                         y = "Drug type: opioids",
+                         fill = "Gender%",
+                         title = "To examine if a certain gender has an inclination for drug abuse")
+
+ggplot(bars, aes(y = STIM_NMU_EVER,
+                                 fill = DEM_GENDER)) +
+                    geom_bar(position = "fill") +
+                    labs(x = "Percentage",
+                         y = "Drug type: stimulants",
+                         fill = "Gender%",
+                         title = "To examine if a certain gender has an inclination for drug abuse")
+
+ggplot(bars, aes(y = GABA_NMU_EVER,
+                                 fill = DEM_GENDER)) +
+                    geom_bar(position = "fill") +
+                    labs(x = "Percentage",
+                         y = "Drug type: illicit drugs",
+                         fill = "Gender%",
+                         title = "To examine if a certain gender has an inclination for drug abuse")
+
+ggplot(bars, aes(y = ILL_USE,
+                                 fill = DEM_GENDER)) +
+                    geom_bar(position = "fill") +
+                    labs(x = "Percentage",
+                         y = "Drug type: GABA",
+                         fill = "Gender%",
+                         title = "To examine if a certain gender has an inclination for drug abuse")
 ```
 
 
@@ -65,41 +148,3 @@ ggplot(age, aes(y = DEM_REGION,
        title = "To examine if age has effects on drug abuse"
        )  
 ```
-
-
-
-
-```{r}
-# nmsl
-bars$DEM_GENDER[bars$DEM_GENDER == 1] <- 1    #将男性的归类为1
-bars$DEM_GENDER[bars$DEM_GENDER == 2] <- 2    #将女性的归类为2
-bars$DEM_GENDER <- factor(bars$DEM_GENDER,    #转为factor形式，替换标签
-                          levels=c(1, 2),
-                          labels=c("Male", "Female"))
-
-# nmsl
-bars$OP_NMU_EVER[bars$OP_NMU_EVER == 0] <- 0    #将无的归类为1
-bars$OP_NMU_EVER[bars$OP_NMU_EVER == 1] <- 1    #将有的归类为2
-bars$OP_NMU_EVER <- factor(bars$OP_NMU_EVER,    #转为factor形式，替换标签
-                           levels=c(0, 1),
-                           labels=c("None", "Opioids"))
-
-
-bars$BENZ_NMU_EVER[bars$BENZ_NMU_EVER == 0] <- 0    # ???
-bars$BENZ_NMU_EVER[bars$BENZ_NMU_EVER == 1] <- 1    #将男性的归类为1
-bars$BENZ_NMU_EVER <- factor(bars$BENZ_NMU_EVER,    #转为factor形式，替换标签
-                             levels=c(0,1),
-                             labels=c("No","Yes"))
-glimpse(bars)
-
-
-ggplot(bars, aes(y = BENZ_NMU_EVER,
-                 fill = DEM_GENDER)) +
-  geom_bar(position = "fill") +
-  labs(x = "Percentage",
-       y = "Drug type: benzodiazepine",
-       fill = "Gender%",
-       title = "To examine if a certain gender has an inclination for drug abuse"
-       )
-```
-
