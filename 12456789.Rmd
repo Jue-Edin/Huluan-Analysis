@@ -30,36 +30,43 @@ bars <- ca %>%
 
 
 
-```{r}
-library(tidyverse)
-theme_set(theme_classic())
-library(maps)
-library(scales)
-library(readr)
 
-region_store <- ca %>%
+```{r plot a graph to see is there a relation between age and drug abuse}
+
+# filter out the participants of the survey who claimed that they never engaged in durg abuse (five types of drug included)
+age <- ca %>%
   filter(
     OP_NMU_EVER == 1|BENZ_NMU_EVER == 1|STIM_NMU_EVER == 1| GABA_NMU_EVER == 1|ILL_USE == 1
   ) %>%
-  select(DEM_LOCATION, DAST_CAT) %>%
-  group_by(DEM_LOCATION) %>%
-  summarise(
-    ave_dast = mean(DAST_CAT, na.rm = TRUE)
-  )
+  select(DEM_REGION, DEM_AGE) 
 
-names(region_store)[names(region_store) == "region"] <- "abb"
+# change the type of variable DEM_REGION
+age$DEM_REGION[bars$DEM_REGION == 1] <- 1    
+age$DEM_REGION[bars$DEM_REGION == 2] <- 2 
+age$DEM_REGION[bars$DEM_REGION == 3] <- 3    
+age$DEM_REGION[bars$DEM_REGION == 4] <- 4
+age$DEM_REGION <- factor(age$DEM_REGION,    
+                          levels=c(1, 2, 3, 4),
+                          labels=c("Atlantic", "Québec", "Ontario", "West"))
+show(class(age$DEM_REGION))
+# create a age categories
+attach(age)
+age$age_compare[DEM_AGE > 65] <- "Elder"
+age$age_compare[DEM_AGE > 35 & DEM_AGE <= 65] <- "Middle Aged"
+age$age_compare[DEM_AGE <= 35] <- "Young"
+detach(age)
 
-plt <- ggplot(region_store, aes(x = long, y = lat, group = group, fill = fact)) + 
-  geom_polygon() +
-  scale_fill_viridis_c(option = "magma") +
-  theme_void() +
-  labs(fill = paste(legendName, "dast_cat", sep = " "))
-return(plt)
-  
-
-
-
+ggplot(age, aes(y = DEM_REGION,
+                 fill = age_compare)) +
+  geom_bar(position = "fill") +
+  labs(x = "Percentage of different age groups who engaged in drug abuse",
+       y = "Four regions",
+       fill = "Age groups",
+       title = "To examine if age has effects on drug abuse"
+       )  
 ```
+
+
 
 
 ```{r}
