@@ -48,7 +48,7 @@ age$DEM_REGION[bars$DEM_REGION == 4] <- 4
 age$DEM_REGION <- factor(age$DEM_REGION,    
                           levels=c(1, 2, 3, 4),
                           labels=c("Atlantic", "Québec", "Ontario", "West"))
-show(class(age$DEM_REGION))
+
 # create a age categories
 attach(age)
 age$age_compare[DEM_AGE > 65] <- "Elder"
