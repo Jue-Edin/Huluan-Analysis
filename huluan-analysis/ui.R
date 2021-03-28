@@ -53,7 +53,7 @@ dashboardPage(
                 #br(""),
                 #br(""),
                 h1("Topic",align="center"),
-                h3('The valuable insights we gain from visualizing the data of "Drug Abuse".'),
+                h3('The valuable insights we gain from visualizing the data of "Drug Abuse" for Canada.'),
                 br(""),
                 h1("Data",align="center"),
                 h3('What we focused on: Our team "Huluan-Analysis" focused on the "drug abuse" data in regarding to "Canada" specifically. We dived into a few demographic characteristics of the participants of the survey, and try to identify some underlying relationship between those demographic variables with the drug abuse. '),
@@ -65,6 +65,7 @@ dashboardPage(
                 strong(h1("Our visualizations",align="center")),
                 h3('First bar chart: The bar chart is the main visualization we use to analyze the dataset, the first one is concerned with the gender and the 5 main drug types: prescription opioid API, benzodiazepine, prescription stimulant, GABA-analogue and illicit drugs. These charts are used to detect any gender difference in drug abuse.'),
                 h3('Second bar chart: This bar chart is visualizing different age groups against 4 regions in Canada, in the age groups are people who claimed that they have engaged in drug abuse at least once. Aim of this plot is to identify if whether a specific area has more elderly people who are struggling from the negative effects resulted from drug abuse.'),
+                h3('Third bar chart: Regarding to this bar plot of total number of drug abusers in different locations, we could compare the number of drug abusers across different provinces in Canada.  The aim is to identify areas in Canada where drug abuse is widespread and to draw public attention to it.'),
                 
                 
             ),
@@ -91,7 +92,13 @@ dashboardPage(
                 
                 fluidRow(
                     
-                    box(width=8,plotlyOutput("distPlot"),h2("commnet"))
+                    box(width=8,plotlyOutput("distPlot")),
+                    box(width=12,
+                        h4('1.Our initial assumption was, if a certain gender is more likely to be involved in the drug abuse of a certain drug type. Within the amount of people who claimed to abused drugs, If the visualization of a particular drug type shows any obvious difference between different genders, it is worth to call for a further investigation to see that if this could contribute to alleviate the negative impact raised by increasing drug abuse recent years. The doctors could give their patients more thoroughly considered guides on the specific type of drug and the dose of medications.'),
+                        h4('2.After visualizing the relationship between the gender and the drug type, we discover some interesting facts:'),
+                        h4('-Except from “Benzodiazepines”, for other 4 drug types, males occupied relatively larger proportion of the total number of drug abusers.'),
+                        h4('- The gender difference in drug abuse for the “GABA-analogue” reveals that there may be a certain factor accounts for this difference, for example, different physical mechanism due to the “Gender” factor. Or, purely for guess, we can raise a reasonable assumption that whether Women are more likely to have illness that requires the intake of GABA-analogue, this assumption could be verified by carrying out further investigation.'),
+                    )
                     
                     
                     
@@ -103,15 +110,29 @@ dashboardPage(
             tabItem(
                 tabName = "Charts1",
                 fluidRow(
-                    box(width=8,plotlyOutput("Charts1"),h2("commnet")
-                    ))
+                    box(width=8,plotlyOutput("Charts1"),
+                    ),
+                    box(width=12,
+                        h4('1.In this part, we only focus on participants who engaged in non-medical use of five main types of drugs: opioids, benzodiazepines, stimulants, GABA-analogue and illicit drugs during their lifetime at least once. After filtering out the participants who never use drug non-medically, we try to examine that whether there is a relationship between the drug abuse and the age of respondents.'),
+                        h4('2.From the graph, we can observe the percentages of different age groups who engaged in drug abuse in four regions. There are a few characteristics can be easily spotted from the plot, the middle-aged group accounts for approximately 50 percent of the total and the elder group accounts for the smallest part in all regions. compared with other three regions, Ontario is the region where more elderly people are engaged in drug abuse based on the dataset, therefore this region may need a closer surveillance of the drug abuse more than other regions. A further study may be required to verify this assumption.'),
+                        h4('3.Note that we don’t have data collected from two provinces, Yukon and Nunavut, which are both belong to the “West” region. The possible reasons for the lack of data in these two provinces may be that they both have relatively smaller population (Y-35874, N-38780). This could potentially have impact on the visualization of the data, lead to a less reliable/generalizable result.'),
+                        h4('4.In common sense, the most vulnerable group under drug abuse is those elderly people who are more likely to have complications, and for those vulnerable groups we would sensibly assume that they would demand more medical resources and require some extra cares. We are interested in locating the area that has more vulnerable people, because that this area should be closely monitored on their status of drug abuse.'),
+                    )
+                    
+                )
             ),
             
             tabItem(
                 tabName = "Charts2",
                 fluidRow(
-                    box(width=12,plotlyOutput("Charts2"),h2("commnet")
-                    ))
+                    box(width=12,plotlyOutput("Charts2")
+                    ),
+                    
+                    box(width=12,
+                        h4('Regarding to this bar plot of total number of drug abusers in different locations, we could compare the number of drug abusers across different provinces in Canada. We can see that Quebec has the largest amount of people engaged in drug abuse, and there are two provinces are not plotted here, which are Yukon and Nunavut, as mentioned in the last bar plot, these two provinces have relatively smaller population sizes. Also, Northwest only have 1 drug abuser reported in the survey, this may due to a smaller sample collected from this area. However, we didn’t take into accounts the weights in this bar plot, the difference shown in the plot may not be generalized to the larger population of that area.'),
+                        h4('If we could take into accounts the weights and obtain a larger sample in the further study, we may be able to find out if a certain region needs more reinforcements in the drug control, in order to reduce the drug abuse in those areas.'),
+                    )
+                )
             ),
             
             
