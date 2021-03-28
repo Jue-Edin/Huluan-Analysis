@@ -12,6 +12,7 @@ library(shiny)
 library(ggplot2)
 library(readr)
 library(plotly)
+library(dplyr)
 
 # Bar chart 1.
 ca <- read_csv(file = "ca.csv")
@@ -87,6 +88,66 @@ age$age_compare[DEM_AGE <= 35] <- "Young"
 detach(age)
 
 
+#chart3
+
+
+location <- ca %>%
+    filter(
+        OP_NMU_EVER == 1|BENZ_NMU_EVER == 1|STIM_NMU_EVER == 1| GABA_NMU_EVER == 1|ILL_USE == 1
+    ) %>%
+    select(DEM_LOCATION)
+
+location_vs_pop <- ca %>%
+    filter(
+        OP_NMU_EVER == 1|BENZ_NMU_EVER == 1|STIM_NMU_EVER == 1| GABA_NMU_EVER == 1|ILL_USE == 1
+    ) %>%
+    select(DEM_LOCATION) %>%
+    group_by(DEM_LOCATION) %>%summarise(pop = n())
+
+location_vs_pop$DEM_LOCATION[location_vs_pop$DEM_LOCATION == 1] <- 1    
+location_vs_pop$DEM_LOCATION[location_vs_pop$DEM_LOCATION == 2] <- 2  
+location_vs_pop$DEM_LOCATION[location_vs_pop$DEM_LOCATION == 3] <- 3    
+location_vs_pop$DEM_LOCATION[location_vs_pop$DEM_LOCATION == 4] <- 4
+location_vs_pop$DEM_LOCATION[location_vs_pop$DEM_LOCATION == 5] <- 5    
+location_vs_pop$DEM_LOCATION[location_vs_pop$DEM_LOCATION == 6] <- 6
+location_vs_pop$DEM_LOCATION[location_vs_pop$DEM_LOCATION == 7] <- 7    
+location_vs_pop$DEM_LOCATION[location_vs_pop$DEM_LOCATION == 8] <- 8
+location_vs_pop$DEM_LOCATION[location_vs_pop$DEM_LOCATION == 9] <- 9    
+location_vs_pop$DEM_LOCATION[location_vs_pop$DEM_LOCATION == 10] <- 10
+location_vs_pop$DEM_LOCATION[location_vs_pop$DEM_LOCATION == 11] <- 11
+location_vs_pop$DEM_LOCATION[location_vs_pop$DEM_LOCATION == 12] <- 12
+location_vs_pop$DEM_LOCATION[location_vs_pop$DEM_LOCATION == 13] <- 13
+location_vs_pop$DEM_LOCATION <- factor(location_vs_pop$DEM_LOCATION,    
+                                       levels=c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
+                                       labels=c("Newfoundland and Labrador", "Nova Scotia" ,
+                                                "Prince Edward Island", "New Brunswick", "Quebec",
+                                                "Ontario", "Manitoba",
+                                                "Saskatchewan", "Alberta", "British Columbia", "Yukon",
+                                                "Nunavut","Northwest"))
+
+location$DEM_LOCATION[location$DEM_LOCATION == 1] <- 1    
+location$DEM_LOCATION[location$DEM_LOCATION == 2] <- 2  
+location$DEM_LOCATION[location$DEM_LOCATION == 3] <- 3    
+location$DEM_LOCATION[location$DEM_LOCATION == 4] <- 4
+location$DEM_LOCATION[location$DEM_LOCATION == 5] <- 5    
+location$DEM_LOCATION[location$DEM_LOCATION == 6] <- 6
+location$DEM_LOCATION[location$DEM_LOCATION == 7] <- 7    
+location$DEM_LOCATION[location$DEM_LOCATION == 8] <- 8
+location$DEM_LOCATION[location$DEM_LOCATION == 9] <- 9    
+location$DEM_LOCATION[location$DEM_LOCATION == 10] <- 10
+location$DEM_LOCATION[location$DEM_LOCATION == 11] <- 11
+location$DEM_LOCATION[location$DEM_LOCATION == 12] <- 12
+location$DEM_LOCATION[location$DEM_LOCATION == 13] <- 13
+location$DEM_LOCATION <- factor(location$DEM_LOCATION,    
+                                levels=c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
+                                labels=c("Newfoundland and Labrador", "Nova Scotia" ,
+                                         "Prince Edward Island", "New Brunswick", "Quebec",
+                                         "Ontario", "Manitoba",
+                                         "Saskatchewan", "Alberta", "British Columbia", "Yukon",
+                                         "Nunavut","Northwest"))
+
+
+
 
 # Define server logic required to draw figures.
 function(input, output) {
@@ -106,35 +167,48 @@ function(input, output) {
         
     )
     
+    output$Charts2<-renderPlotly(
+        ggplot(location, aes(x = DEM_LOCATION)) +
+            geom_bar() +
+            labs(x = "Location",
+                 y = "Count",
+                 title = "Number of drug abusers in different locations "
+            )+theme(plot.title = element_text(hjust = 0.5,size=20))
+        #,axis.text.x = element_text(angle=45)
+        
+        
+    )
+    
+    
     # Finally print our plots.
     output$distPlot <- renderPlotly(
         {
-            if(input$Drug_Type == "benzodiazepines"){
+            if(input$Drug_Type == "Benzodiazepines"){
                 p <- ggplot(bars, aes(y = BENZ_NMU_EVER,
                                       fill = DEM_GENDER)) +
                     geom_bar(position = "fill") +
                     labs(x = "Percentage",
-                         y = "Drug type: Benzodiazepine",
+                         y = "Drug Type: Benzodiazepine",
                          fill = "Gender%",
                          title = "To examine if a certain gender has an inclination for drug abuse")+
                     theme(plot.title = element_text(hjust = 0.5,size=15))
             }
-            if(input$Drug_Type == "opioids"){
+            if(input$Drug_Type == "Opioids"){
                 p <- ggplot(bars, aes(y = OP_NMU_EVER,
                                       fill = DEM_GENDER)) +
                     geom_bar(position = "fill") +
                     labs(x = "Percentage",
-                         y = "Drug type: Opioids",
+                         y = "Drug Type: Opioids",
                          fill = "Gender%",
                          title = "To examine if a certain gender has an inclination for drug abuse")+
                     theme(plot.title = element_text(hjust = 0.5,size=15))
             }
-            if(input$Drug_Type == "stimulants"){
+            if(input$Drug_Type == "Stimulants"){
                 p <- ggplot(bars, aes(y = STIM_NMU_EVER,
                                       fill = DEM_GENDER)) +
                     geom_bar(position = "fill") +
                     labs(x = "Percentage",
-                         y = "Drug type: Stimulants",
+                         y = "Drug Type: Stimulants",
                          fill = "Gender%",
                          title = "To examine if a certain gender has an inclination for drug abuse")+
                     theme(plot.title = element_text(hjust = 0.5,size=15))
@@ -144,17 +218,17 @@ function(input, output) {
                                       fill = DEM_GENDER)) +
                     geom_bar(position = "fill") +
                     labs(x = "Percentage",
-                         y = "Drug type: GABA",
+                         y = "Drug Type: GABA",
                          fill = "Gender%",
                          title = "To examine if a certain gender has an inclination for drug abuse")+
                     theme(plot.title = element_text(hjust = 0.5,size=15))
             }
-            if(input$Drug_Type == "illicit drug"){
+            if(input$Drug_Type == "Illicit drug"){
                 p <- ggplot(bars, aes(y = ILL_USE,
                                       fill = DEM_GENDER)) +
                     geom_bar(position = "fill") +
                     labs(x = "Percentage",
-                         y = "Drug type: Illicit drug",
+                         y = "Drug Type: Illicit drug",
                          fill = "Gender%",
                          title = "To examine if a certain gender has an inclination for drug abuse")+
                     theme(plot.title = element_text(hjust = 0.5,size=15))

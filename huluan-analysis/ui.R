@@ -29,6 +29,7 @@ dashboardPage(
             menuItem("Welcome", tabName = "Welcome", icon = icon("dashboard")), # menu Item 1
             menuItem("Charts:Drug Type", tabName = "Charts", icon = icon("bar-chart-o")),
             menuItem("Chart: Age Effect", tabName = "Charts1", icon = icon("bar-chart-o")),
+            menuItem("Chart: Location", tabName = "Charts2", icon = icon("bar-chart-o")),
             menuItem("Conclusion", tabName = "conclusion", icon = icon("th")) # menu Item 2
         )),
     
@@ -76,13 +77,13 @@ dashboardPage(
                         #title = "Drug_Type",
                         h3(radioButtons("Drug_Type",
                                         "Drug Type", c(
-                                            "benzodiazepines" = "benzodiazepines",
-                                            "opioids" = "opioids",
-                                            "stimulants" = "stimulants",
+                                            "Benzodiazepines" = "Benzodiazepines",
+                                            "Opioids" = "Opioids",
+                                            "Stimulants" = "Stimulants",
                                             "GABA"="GABA",
-                                            "illicit drug"="illicit drug"
+                                            "Illicit drug"="Illicit drug"
                                         ),
-                                        selected = "benzodiazepines",
+                                        selected = "Benzodiazepines",
                                         inline=TRUE))),
                     
                     
@@ -106,6 +107,12 @@ dashboardPage(
                     ))
             ),
             
+            tabItem(
+                tabName = "Charts2",
+                fluidRow(
+                    box(width=12,plotlyOutput("Charts2"),h2("commnet")
+                    ))
+            ),
             
             
             #------------------------------------
@@ -117,7 +124,8 @@ dashboardPage(
                 # -----------------------------------
                 # Section 4a: conclusion
                 #------------------------------------
-                h2("conclusion")
+                h1("conclusion",align="center"),
+                h3("conclusion1111")
                 
             ) )
         #------------------------------------
