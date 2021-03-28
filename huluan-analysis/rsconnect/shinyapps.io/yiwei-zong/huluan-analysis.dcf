@@ -1,0 +1,12 @@
+name: huluan-analysis
+title: huluan-analysis
+username:
+account: yiwei-zong
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 3874062
+bundleId: 4403771
+url: https://yiwei-zong.shinyapps.io/Huluan-Analysis/
+when: 1616925977.61633
+asMultiple: FALSE
+asStatic: FALSE

@@ -9,7 +9,7 @@
 
 library(shiny)
 library(shinydashboard)
-library(DT)
+library(plotly)
 #------------------------------------
 # Section 1: Dashboard Page
 #------------------------------------
@@ -18,9 +18,6 @@ dashboardPage(
     skin = "black", # changing the color of the dashboard colour
     dashboardHeader(title = "Huluan-Analysis-main"),
     
-    # -----------------------------------
-    # Section 2: Dashboard Sidebar
-    #------------------------------------
     dashboardSidebar(
         sidebarMenu(
             #------------------------------------
@@ -31,7 +28,7 @@ dashboardPage(
             #startExpanded = TRUE, # begin with the menu expanded
             menuItem("Welcome", tabName = "Welcome", icon = icon("dashboard")), # menu Item 1
             menuItem("Charts:Drug Type", tabName = "Charts", icon = icon("bar-chart-o")),
-            menuItem("Data1", tabName = "data1", icon = icon("bar-chart-o")),
+            menuItem("Chart: Age Effect", tabName = "Charts1", icon = icon("bar-chart-o")),
             menuItem("Conclusion", tabName = "conclusion", icon = icon("th")) # menu Item 2
         )),
     # -----------------------------------
@@ -40,10 +37,7 @@ dashboardPage(
     #------------------------------------
     dashboardBody(
         tabItems(
-            # -----------------------------------
-            # -----------------------------------
-            # Section 3A: Data Table Main Body
-            #------------------------------------
+            
             
             
             
@@ -78,6 +72,7 @@ dashboardPage(
                 tabName = "Charts",
                 fluidRow(
                     box(width = 8,
+                        #title = "Drug_Type",
                         h3(radioButtons("Drug_Type",
                                         "Drug Type", c(
                                             "benzodiazepines" = "benzodiazepines",
@@ -95,9 +90,7 @@ dashboardPage(
                 fluidRow(
                     
                     box(width=8,plotlyOutput("distPlot"),h2("commnet"))
-                    #box(width=14,h4("comment")),
-                    #box(width=14,height =120,plotlyOutput("distPlot")),
-                    #box(plotOutput('plot_test'))
+                    
                     
                     
                 )
@@ -106,11 +99,9 @@ dashboardPage(
             
             
             tabItem(
-                tabName = "data1",
+                tabName = "Charts1",
                 fluidRow(
-                    box(
-                        title="test_input",
-                        textOutput("text1"),
+                    box(width=8,plotlyOutput("Charts1"),h2("commnet")
                     ))
             ),
             
@@ -123,7 +114,7 @@ dashboardPage(
                 tabName = "conclusion",
                 #------------------------------------
                 # -----------------------------------
-                # Section 4a: Control Row
+                # Section 4a: conclusion
                 #------------------------------------
                 h2("conclusion")
                 

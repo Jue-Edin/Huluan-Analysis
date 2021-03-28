@@ -63,12 +63,49 @@ bars$ILL_USE <- factor(bars$ILL_USE,    # Change our data to the factor and chan
                        levels=c(0, 1),
                        labels=c("No", "Yes"))
 
+
+
+age <- ca %>%
+    filter(
+        OP_NMU_EVER == 1|BENZ_NMU_EVER == 1|STIM_NMU_EVER == 1| GABA_NMU_EVER == 1|ILL_USE == 1
+    ) %>%
+    select(DEM_REGION, DEM_AGE) 
+
+# change the type of variable DEM_REGION
+age$DEM_REGION[bars$DEM_REGION == 1] <- 1    
+age$DEM_REGION[bars$DEM_REGION == 2] <- 2 
+age$DEM_REGION[bars$DEM_REGION == 3] <- 3    
+age$DEM_REGION[bars$DEM_REGION == 4] <- 4
+age$DEM_REGION <- factor(age$DEM_REGION,    
+                         levels=c(1, 2, 3, 4),
+                         labels=c("Atlantic", "Quebec", "Ontario", "West"))
+
+# create a age categories
+attach(age)
+age$age_compare[DEM_AGE > 65] <- "Elder"
+age$age_compare[DEM_AGE > 35 & DEM_AGE <= 65] <- "Middle Aged"
+age$age_compare[DEM_AGE <= 35] <- "Young"
+detach(age)
+
+
+
 # Define server logic required to draw figures.
 function(input, output) {
     #datasetInput <- reactive(input$Drug_Type)
     #print (datasetInput)
     
-    
+    output$Charts1<-renderPlotly(
+        ggplot(age, aes(y = DEM_REGION,
+                        fill = age_compare)) +
+            geom_bar(position = "fill") +
+            labs(x = "Percentage of different age groups who engaged in drug abuse",
+                 y = "Four regions",
+                 fill = "Age groups",
+                 title = "To examine if age has effects on drug abuse"
+            )+theme(plot.title = element_text(hjust = 0.5,size=20))
+        
+        
+    )
     
     # Finally print our plots.
     output$distPlot <- renderPlotly(
@@ -126,3 +163,4 @@ function(input, output) {
             plotly_build(p)
         })  
 }
+
