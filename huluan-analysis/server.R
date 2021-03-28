@@ -114,7 +114,7 @@ function(input, output) {
                                       fill = DEM_GENDER)) +
                     geom_bar(position = "fill") +
                     labs(x = "Percentage",
-                         y = "Drug type: benzodiazepine",
+                         y = "Drug type: Benzodiazepine",
                          fill = "Gender%",
                          title = "To examine if a certain gender has an inclination for drug abuse")+
                     theme(plot.title = element_text(hjust = 0.5,size=15))
@@ -124,7 +124,7 @@ function(input, output) {
                                       fill = DEM_GENDER)) +
                     geom_bar(position = "fill") +
                     labs(x = "Percentage",
-                         y = "Drug type: benzodiazepine",
+                         y = "Drug type: Opioids",
                          fill = "Gender%",
                          title = "To examine if a certain gender has an inclination for drug abuse")+
                     theme(plot.title = element_text(hjust = 0.5,size=15))
@@ -134,7 +134,7 @@ function(input, output) {
                                       fill = DEM_GENDER)) +
                     geom_bar(position = "fill") +
                     labs(x = "Percentage",
-                         y = "Drug type: benzodiazepine",
+                         y = "Drug type: Stimulants",
                          fill = "Gender%",
                          title = "To examine if a certain gender has an inclination for drug abuse")+
                     theme(plot.title = element_text(hjust = 0.5,size=15))
@@ -144,7 +144,7 @@ function(input, output) {
                                       fill = DEM_GENDER)) +
                     geom_bar(position = "fill") +
                     labs(x = "Percentage",
-                         y = "Drug type: benzodiazepine",
+                         y = "Drug type: GABA",
                          fill = "Gender%",
                          title = "To examine if a certain gender has an inclination for drug abuse")+
                     theme(plot.title = element_text(hjust = 0.5,size=15))
@@ -154,12 +154,13 @@ function(input, output) {
                                       fill = DEM_GENDER)) +
                     geom_bar(position = "fill") +
                     labs(x = "Percentage",
-                         y = "Drug type: benzodiazepine",
+                         y = "Drug type: Illicit drug",
                          fill = "Gender%",
                          title = "To examine if a certain gender has an inclination for drug abuse")+
                     theme(plot.title = element_text(hjust = 0.5,size=15))
             }
             plotly_build(p)
-        })  
+        })
 }
+
 
