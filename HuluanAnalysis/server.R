@@ -30,41 +30,48 @@ bars$DEM_GENDER <- factor(bars$DEM_GENDER,    # Change our data to the factor an
 bars$BENZ_NMU_EVER[bars$BENZ_NMU_EVER == 0] <- 0    # Classify non-taking as 0.
 bars$BENZ_NMU_EVER[bars$BENZ_NMU_EVER == 1] <- 1    # Classify taking as 1.
 bars$BENZ_NMU_EVER <- factor(bars$BENZ_NMU_EVER,    # Change our data to the factor and change label.
-                             levels=c(0,1),
-                             labels=c("No","Yes"))
+                             levels=c(0, 1),
+                             labels=c("No", "Yes"))
 
 # Plot the second figure.
 bars$OP_NMU_EVER[bars$OP_NMU_EVER == 0] <- 0    # Classify non-taking as 0.
 bars$OP_NMU_EVER[bars$OP_NMU_EVER == 1] <- 1    # Classify taking as 1.
 bars$OP_NMU_EVER <- factor(bars$OP_NMU_EVER,    # Change our data to the factor and change label.
-                           levels=c(0,1),
-                           labels=c("No","Yes"))
+                           levels=c(0, 1),
+                           labels=c("No", "Yes"))
 
 # Plot the third figure.
 bars$STIM_NMU_EVER[bars$STIM_NMU_EVER == 0] <- 0    # Classify non-taking as 0.
 bars$STIM_NMU_EVER[bars$STIM_NMU_EVER == 1] <- 1    # Classify taking as 1.
 bars$STIM_NMU_EVER <- factor(bars$STIM_NMU_EVER,    # Change our data to the factor and change label.
-                             levels=c(0,1),
-                             labels=c("No","Yes"))
+                             levels=c(0, 1),
+                             labels=c("No", "Yes"))
 
 # Plot the fourth figure.
 bars$GABA_NMU_EVER[bars$GABA_NMU_EVER == 0] <- 0    # Classify non-taking as 0.
 bars$GABA_NMU_EVER[bars$GABA_NMU_EVER == 1] <- 1    # Classify taking as 1.
 bars$GABA_NMU_EVER <- factor(bars$GABA_NMU_EVER,    # Change our data to the factor and change label.
-                             levels=c(0,1),
-                             labels=c("No","Yes"))
+                             levels=c(0, 1),
+                             labels=c("No", "Yes"))
 
 # Plot the fifth figure.
 bars$ILL_USE[bars$ILL_USE == 0] <- 0    # Classify non-taking as 0.
 bars$ILL_USE[bars$ILL_USE == 1] <- 1    # Classify taking as 1.
 bars$ILL_USE <- factor(bars$ILL_USE,    # Change our data to the factor and change label.
-                       levels=c(0,1),
-                       labels=c("No","Yes"))
+                       levels=c(0, 1),
+                       labels=c("No", "Yes"))
 
-# Define server logic required to draw a histogram.
+# Define server logic required to draw figures.
 server <- function(input, output) {
-    
-    # 最终生成结果。
+    datasetInput <- reactive({
+        switch(input$bars,
+               "OP_NMU_EVER" = opioids,
+               "BENZ_NMU_EVER" = benzodiazepines,
+               "STIM_NMU_EVER" = stimulants,
+               "GABA_NMU_EVER" = GABA,
+               "ILL_USE" = illicit_drugs)
+    })
+    # Finally print our plots.
     output$distPlot <- renderPlot(
         {
             if(input$bars == "benzodiazepines"){
