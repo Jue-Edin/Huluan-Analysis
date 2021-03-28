@@ -31,6 +31,7 @@ dashboardPage(
             menuItem("Chart: Age Effect", tabName = "Charts1", icon = icon("bar-chart-o")),
             menuItem("Conclusion", tabName = "conclusion", icon = icon("th")) # menu Item 2
         )),
+    
     # -----------------------------------
     # -----------------------------------
     # Section 3: Dashboard body
