@@ -11,6 +11,7 @@ library(shiny)
 
 library(ggplot2)
 library(readr)
+
 library(plotly)
 
 # Bar chart 1.
@@ -63,57 +64,65 @@ bars$ILL_USE <- factor(bars$ILL_USE,    # Change our data to the factor and chan
                        labels=c("No", "Yes"))
 
 # Define server logic required to draw figures.
-server <- function(input, output) {
-    datasetInput <- reactive(input$bars)
+function(input, output) {
+    #datasetInput <- reactive(input$Drug_Type)
+    #print (datasetInput)
+    
+    
+    
     # Finally print our plots.
     output$distPlot <- renderPlotly(
         {
-            if(datasetInput() == "benzodiazepines"){
+            if(input$Drug_Type == "benzodiazepines"){
                 p <- ggplot(bars, aes(y = BENZ_NMU_EVER,
-                                 fill = DEM_GENDER)) +
+                                      fill = DEM_GENDER)) +
                     geom_bar(position = "fill") +
                     labs(x = "Percentage",
                          y = "Drug type: benzodiazepine",
                          fill = "Gender%",
-                         title = "To examine if a certain gender has an inclination for drug abuse")
+                         title = "To examine if a certain gender has an inclination for drug abuse")+
+                    theme(plot.title = element_text(hjust = 0.5,size=15))
             }
-            if(datasetInput() == "opioids"){
+            if(input$Drug_Type == "opioids"){
                 p <- ggplot(bars, aes(y = OP_NMU_EVER,
-                                 fill = DEM_GENDER)) +
+                                      fill = DEM_GENDER)) +
                     geom_bar(position = "fill") +
                     labs(x = "Percentage",
                          y = "Drug type: benzodiazepine",
                          fill = "Gender%",
-                         title = "To examine if a certain gender has an inclination for drug abuse")
+                         title = "To examine if a certain gender has an inclination for drug abuse")+
+                    theme(plot.title = element_text(hjust = 0.5,size=15))
             }
-            if(datasetInput() == "stimulants"){
+            if(input$Drug_Type == "stimulants"){
                 p <- ggplot(bars, aes(y = STIM_NMU_EVER,
-                                 fill = DEM_GENDER)) +
+                                      fill = DEM_GENDER)) +
                     geom_bar(position = "fill") +
                     labs(x = "Percentage",
                          y = "Drug type: benzodiazepine",
                          fill = "Gender%",
-                         title = "To examine if a certain gender has an inclination for drug abuse")
+                         title = "To examine if a certain gender has an inclination for drug abuse")+
+                    theme(plot.title = element_text(hjust = 0.5,size=15))
             }
-            if(input$bars == "GABA"){
+            if(input$Drug_Type == "GABA"){
                 p <- ggplot(bars, aes(y = GABA_NMU_EVER,
-                                 fill = DEM_GENDER)) +
+                                      fill = DEM_GENDER)) +
                     geom_bar(position = "fill") +
                     labs(x = "Percentage",
                          y = "Drug type: benzodiazepine",
                          fill = "Gender%",
-                         title = "To examine if a certain gender has an inclination for drug abuse")
+                         title = "To examine if a certain gender has an inclination for drug abuse")+
+                    theme(plot.title = element_text(hjust = 0.5,size=15))
             }
-            if(input$bars == "illicit drug"){
+            if(input$Drug_Type == "illicit drug"){
                 p <- ggplot(bars, aes(y = ILL_USE,
-                                 fill = DEM_GENDER)) +
+                                      fill = DEM_GENDER)) +
                     geom_bar(position = "fill") +
                     labs(x = "Percentage",
                          y = "Drug type: benzodiazepine",
                          fill = "Gender%",
-                         title = "To examine if a certain gender has an inclination for drug abuse")
+                         title = "To examine if a certain gender has an inclination for drug abuse")+
+                    theme(plot.title = element_text(hjust = 0.5,size=15))
             }
-            gg <- plotly_build(p)
+            plotly_build(p)
         })  
 }
-
