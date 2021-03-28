@@ -30,7 +30,7 @@ dashboardPage(
             menuItem("Charts:Drug Type", tabName = "Charts", icon = icon("bar-chart-o")),
             menuItem("Chart: Age Effect", tabName = "Charts1", icon = icon("bar-chart-o")),
             menuItem("Chart: Location", tabName = "Charts2", icon = icon("bar-chart-o")),
-            menuItem("Conclusion", tabName = "conclusion", icon = icon("th")) # menu Item 2
+            menuItem("Summary", tabName = "Summary", icon = icon("th")) # menu Item 2
         )),
     
     # -----------------------------------
@@ -140,13 +140,20 @@ dashboardPage(
             # -----------------------------------
             # Section 4: conclusion
             tabItem(
-                tabName = "conclusion",
+                tabName = "Summary",
                 #------------------------------------
                 # -----------------------------------
                 # Section 4a: conclusion
                 #------------------------------------
-                h1("conclusion",align="center"),
-                h3("conclusion1111")
+                h1("Summary",align="center"),
+                h3('•	The majority of drug abusers are middle-aged people, which is a concern, in our further investigation, we found in ‘Drug Abuse Hitting Middle-aged More Than Gen-Xers’  , In Washington, DC, the greatest number of drug deaths-76-occurred in 2004 among persons aged 35 to 54. Among adults aged 45 to 60 and that more than 57% of patients with major depressive disorder suffered from comorbid alcohol or drug use. They all show that middle-age abusers have a higher risk of death and depressive disorder.'),
+                h3('•	Even though our result shows except from “Benzodiazepines”, for other 4 drug types, males occupied relatively larger proportion of the total number of drug abusers, from the article ‘SEX DIFFERENCES, GENDER AND ADDICTION’ , ‘among the vulnerable populations, females escalate drug use more rapidly than males and relapse is more likely to be triggered by stressful events or drug-related cues’, which inspires us that we still need give more help to females because of many more barriers to treatment-seeking and engagement, lack of social support for recovery among girls and women.'),
+                br(""),
+                h3('Reference'),
+                h3('1. https://www.psychiatrictimes.com/view/drug-abuse-hitting-middle-aged-more-gen-xers'),
+                h3('2. https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5120656/'),
+
+                
                 
             ) )
         #------------------------------------
