@@ -18,7 +18,7 @@ ui <- fluidPage(
     # Sidebar with a slider input for number of bins
     sidebarLayout(
         sidebarPanel(
-            selectInput("bars",
+            selectInput(inputId = "bars",
                         label = "Drug Types",
                         choices = list("benzodiazepines", "opioids",
                                        "stimulants", "illicit drugs",

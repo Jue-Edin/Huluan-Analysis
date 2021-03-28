@@ -11,6 +11,7 @@ library(shiny)
 
 library(ggplot2)
 library(readr)
+library(plotly)
 
 # Bar chart 1.
 ca <- read_csv(file = "ca.csv")
@@ -63,19 +64,12 @@ bars$ILL_USE <- factor(bars$ILL_USE,    # Change our data to the factor and chan
 
 # Define server logic required to draw figures.
 server <- function(input, output) {
-    datasetInput <- reactive({
-        switch(input$bars,
-               "OP_NMU_EVER" = opioids,
-               "BENZ_NMU_EVER" = benzodiazepines,
-               "STIM_NMU_EVER" = stimulants,
-               "GABA_NMU_EVER" = GABA,
-               "ILL_USE" = illicit_drugs)
-    })
+    datasetInput <- reactive(input$bars)
     # Finally print our plots.
-    output$distPlot <- renderPlot(
+    output$distPlot <- renderPlotly(
         {
-            if(input$bars == "benzodiazepines"){
-                ggplot(bars, aes(y = BENZ_NMU_EVER,
+            if(datasetInput() == "benzodiazepines"){
+                p <- ggplot(bars, aes(y = BENZ_NMU_EVER,
                                  fill = DEM_GENDER)) +
                     geom_bar(position = "fill") +
                     labs(x = "Percentage",
@@ -83,8 +77,8 @@ server <- function(input, output) {
                          fill = "Gender%",
                          title = "To examine if a certain gender has an inclination for drug abuse")
             }
-            if(input$bars == "opioids"){
-                ggplot(bars, aes(y = OP_NMU_EVER,
+            if(datasetInput() == "opioids"){
+                p <- ggplot(bars, aes(y = OP_NMU_EVER,
                                  fill = DEM_GENDER)) +
                     geom_bar(position = "fill") +
                     labs(x = "Percentage",
@@ -92,8 +86,8 @@ server <- function(input, output) {
                          fill = "Gender%",
                          title = "To examine if a certain gender has an inclination for drug abuse")
             }
-            if(input$bars == "stimulants"){
-                ggplot(bars, aes(y = STIM_NMU_EVER,
+            if(datasetInput() == "stimulants"){
+                p <- ggplot(bars, aes(y = STIM_NMU_EVER,
                                  fill = DEM_GENDER)) +
                     geom_bar(position = "fill") +
                     labs(x = "Percentage",
@@ -102,7 +96,7 @@ server <- function(input, output) {
                          title = "To examine if a certain gender has an inclination for drug abuse")
             }
             if(input$bars == "GABA"){
-                ggplot(bars, aes(y = GABA_NMU_EVER,
+                p <- ggplot(bars, aes(y = GABA_NMU_EVER,
                                  fill = DEM_GENDER)) +
                     geom_bar(position = "fill") +
                     labs(x = "Percentage",
@@ -111,7 +105,7 @@ server <- function(input, output) {
                          title = "To examine if a certain gender has an inclination for drug abuse")
             }
             if(input$bars == "illicit drug"){
-                ggplot(bars, aes(y = ILL_USE,
+                p <- ggplot(bars, aes(y = ILL_USE,
                                  fill = DEM_GENDER)) +
                     geom_bar(position = "fill") +
                     labs(x = "Percentage",
@@ -119,6 +113,7 @@ server <- function(input, output) {
                          fill = "Gender%",
                          title = "To examine if a certain gender has an inclination for drug abuse")
             }
+            gg <- plotly_build(p)
         })  
 }
 
