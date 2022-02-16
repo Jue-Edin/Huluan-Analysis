@@ -1,5 +1,4 @@
 # Huluan-Analysis
 
-This is a line from readme.    
-hi
-nice
+Our team have 5 teammates:
+Jue Gong, Qianqi Jia, Xinyi Qian, Jingyou Zhou, Yiwei Zong.
